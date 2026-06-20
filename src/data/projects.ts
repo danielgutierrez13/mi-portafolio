@@ -252,7 +252,7 @@ export const PROJECTS: Projects = {
     {
       id: 'proyecto-sispro-coffee',
       placeholder: false,
-      confidential: false,
+      confidential: true,
       badge: 'PIDIA — Cliente varios',
       title: 'SISPRO Coffee — Gestión integral de café',
       role: 'Full Stack Developer',
@@ -275,7 +275,7 @@ export const PROJECTS: Projects = {
     {
       id: 'proyecto-restaurante',
       placeholder: false,
-      confidential: false,
+      confidential: true,
       badge: 'PIDIA — Cliente varios',
       title: 'Sistema de Gestión de Restaurante',
       role: 'Full Stack Developer',
@@ -298,7 +298,7 @@ export const PROJECTS: Projects = {
     {
       id: 'proyecto-landing-productos',
       placeholder: false,
-      confidential: false,
+      confidential: true,
       badge: 'PIDIA — Cliente varios',
       title: 'Landing Page — Promoción de productos',
       role: 'Full Stack Developer',

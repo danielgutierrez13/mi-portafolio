@@ -1,7 +1,38 @@
-.projects-grid {
+.projects-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.projects-carousel__row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.projects-carousel__track {
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
+  min-height: 400px;
+}
+.projects-carousel__nav {
+  flex-shrink: 0;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--ink-soft);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.projects-carousel__nav:hover { background: var(--bg-alt); color: var(--ink); }
+.projects-carousel__nav .icon { width: 16px; height: 16px; }
+.projects-carousel__counter {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-align: center;
 }
 .project-card {
   background: var(--surface);
@@ -79,6 +110,6 @@
 }
 .release-item h4 { font-size: 14px; font-weight: 600; line-height: 1.4; }
 
-@media (max-width: 860px) {
-  .projects-grid { grid-template-columns: 1fr; }
+@media (max-width: 700px) {
+  .projects-carousel__track { grid-template-columns: 1fr; min-height: unset; }
 }

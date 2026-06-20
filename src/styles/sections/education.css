@@ -36,7 +36,18 @@
 .edu-card__doc-btn:hover { background: var(--accent); color: #fff; }
 .edu-card__doc-btn .icon { width: 14px; height: 14px; }
 
+.cert-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cert-carousel__row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 .cert-grid {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
@@ -56,9 +67,9 @@
 }
 .cert-card .chip-row .chip { background: var(--bg-alt); font-size: 13px; }
 
-@media (max-width: 900px) {
+@media (max-width: 700px) {
   .cert-grid { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 560px) {
+@media (max-width: 480px) {
   .cert-grid { grid-template-columns: 1fr; }
 }

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
+import { useSwipe } from '../../../hooks/useSwipe';
 import { SectionHead } from '../../ui/SectionHead';
 import { Icon } from '../../ui/Icon';
 import { Lightbox } from '../../ui/Lightbox';
@@ -94,26 +95,50 @@ function CertCard({ group, onOpen }: CertCardProps) {
   );
 }
 
+const PER_PAGE = 3;
+
 export function Education() {
   const [activeCert, setActiveCert] = useState<Cert | null>(null);
   const [activeDegree, setActiveDegree] = useState<Degree | null>(null);
-  const leftRef = useScrollReveal();
-  const rightRef = useScrollReveal();
+  const [current, setCurrent] = useState(0);
+  const degreeRef = useScrollReveal();
   const { eyebrow, heading, description, degrees, certGroups } = EDUCATION;
+
+  const pages = Math.ceil(certGroups.length / PER_PAGE);
+
+  const go = useCallback((page: number) => {
+    setCurrent(((page % pages) + pages) % pages);
+  }, [pages]);
+
+  const prev = useCallback(() => go(current - 1), [current, go]);
+  const next = useCallback(() => go(current + 1), [current, go]);
+
+  const certRef = useSwipe(prev, next);
+
+  const visible = certGroups.slice(current * PER_PAGE, current * PER_PAGE + PER_PAGE);
 
   return (
     <Section id="formacion" alt>
       <SectionHead eyebrow={eyebrow} heading={heading} description={description} />
       <div className="formacion__grid">
-        <div className="reveal" ref={leftRef}>
+        <div className="reveal" ref={degreeRef}>
           {degrees.map((deg) => <EduCard key={deg.id} degree={deg} onOpen={setActiveDegree} />)}
         </div>
-        <div className="reveal" ref={rightRef}>
-          <div className="cert-grid">
-            {certGroups.map((group) => (
-              <CertCard key={group.id} group={group} onOpen={setActiveCert} />
-            ))}
+        <div className="cert-carousel">
+          <div className="cert-carousel__row">
+            <button type="button" className="projects-carousel__nav" onClick={prev} aria-label="Anteriores">
+              <Icon id="chevron-left" />
+            </button>
+            <div className="cert-grid" ref={certRef}>
+              {visible.map((group) => (
+                <CertCard key={group.id} group={group} onOpen={setActiveCert} />
+              ))}
+            </div>
+            <button type="button" className="projects-carousel__nav" onClick={next} aria-label="Siguientes">
+              <Icon id="chevron-right" />
+            </button>
           </div>
+          <span className="projects-carousel__counter">{current + 1} / {pages}</span>
         </div>
       </div>
       <CertLightbox cert={activeCert} onClose={() => setActiveCert(null)} />
