@@ -1,0 +1,80 @@
+.hero { padding-block: 88px 110px; }
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 56px;
+  align-items: center;
+}
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5.6vw, 58px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin-bottom: 18px;
+}
+.hero__role { font-size: 18px; color: var(--ink); margin-bottom: 16px; }
+.hero__role strong { color: var(--primary); }
+.hero__pitch {
+  color: var(--ink-soft);
+  font-size: 16.5px;
+  max-width: 520px;
+  margin-bottom: 32px;
+}
+.hero__actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 34px; }
+.hero__meta { display: flex; flex-wrap: wrap; gap: 22px; font-size: 14px; color: var(--ink-soft); font-family: var(--font-mono); }
+.hero__meta li { display: flex; align-items: center; gap: 7px; }
+.hero__meta .icon { width: 15px; height: 15px; color: var(--primary); }
+.dot-live { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); display: inline-block; animation: pulse 1.8s ease-in-out infinite; }
+
+/* API card */
+.api-card {
+  background: #10131C;
+  border-radius: var(--radius-lg);
+  padding: 0;
+  box-shadow: 0 30px 60px -25px rgba(16,19,28,.55);
+  overflow: hidden;
+  font-family: var(--font-mono);
+  border: 1px solid #1F2333;
+}
+.api-card__bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #1F2333;
+}
+.api-card__dot--get {
+  background: rgba(31,174,110,.16);
+  color: #37D68C;
+  font-size: 12px; font-weight: 600;
+  padding: 3px 9px; border-radius: 6px;
+  letter-spacing: .03em;
+}
+.api-card__path { color: #C7CCDC; font-size: 13.5px; }
+.api-card__status {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding: 14px 20px 0;
+  font-size: 12.5px;
+  color: #7B8298;
+}
+.status-pill--ok {
+  background: rgba(31,174,110,.16);
+  color: #37D68C;
+  padding: 2px 9px; border-radius: 6px; font-weight: 600;
+}
+.api-card__body {
+  margin: 0;
+  padding: 18px 20px 24px;
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: #A9AFC2;
+  overflow-x: auto;
+}
+.tok-key { color: #7FB3FF; }
+.tok-str { color: #9FE6B6; }
+.tok-num { color: #F2C166; }
+.cursor-blink { color: #37D68C; animation: blink 1s steps(1) infinite; }
+
+@media (max-width: 980px) {
+  .hero__grid { grid-template-columns: 1fr; }
+  .hero__meta { font-size: 13px; }
+}

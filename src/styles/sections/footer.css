@@ -1,0 +1,9 @@
+.site-footer {
+  background: #10131C;
+  color: #6A7188;
+  text-align: center;
+  font-size: 13px;
+  font-family: var(--font-mono);
+  padding: 22px 0 34px;
+  border-top: 1px solid #1F2333;
+}

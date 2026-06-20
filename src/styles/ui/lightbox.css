@@ -1,0 +1,90 @@
+dialog.lightbox__panel {
+  position: fixed;
+  background: var(--surface);
+  border: none;
+  border-radius: var(--radius-lg);
+  max-width: 480px;
+  width: calc(100% - 48px);
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 40px 80px -30px rgba(0,0,0,.5);
+  padding: 0;
+  margin: auto;
+  opacity: 0;
+  transform: translateY(10px) scale(.98);
+  transition:
+    opacity .18s ease,
+    transform .18s ease,
+    overlay .18s ease allow-discrete,
+    display .18s ease allow-discrete;
+}
+dialog.lightbox__panel[open] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+@starting-style {
+  dialog.lightbox__panel[open] {
+    opacity: 0;
+    transform: translateY(10px) scale(.98);
+  }
+}
+dialog.lightbox__panel--wide { max-width: 680px; }
+
+dialog.lightbox__panel::backdrop {
+  background: rgba(8, 9, 14, .7);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity .18s ease, overlay .18s ease allow-discrete, display .18s ease allow-discrete;
+}
+dialog.lightbox__panel[open]::backdrop { opacity: 1; }
+@starting-style {
+  dialog.lightbox__panel[open]::backdrop { opacity: 0; }
+}
+
+.lightbox__close {
+  position: absolute; top: 14px; right: 14px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--bg-alt);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-soft);
+  z-index: 2;
+}
+.lightbox__close:hover { color: var(--ink); }
+.lightbox__close .icon { width: 16px; height: 16px; }
+
+.lightbox__image-wrap {
+  background: var(--bg-alt);
+  min-height: 200px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  overflow: hidden;
+}
+.lightbox__image-wrap img { width: 100%; display: block; }
+
+.lightbox__placeholder {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  color: var(--ink-soft);
+  padding: 48px 24px;
+  text-align: center;
+  font-size: 13.5px;
+}
+.lightbox__placeholder .icon { width: 30px; height: 30px; color: var(--border); }
+
+.lightbox__pdf { width: 100%; height: 480px; border: none; border-radius: 4px; }
+
+.lightbox__meta { padding: 22px 24px 26px; }
+.lightbox__provider {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--accent);
+}
+.lightbox__meta h3 { font-size: 19px; font-weight: 700; margin: 6px 0 12px; }
+.lightbox__obtained {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12.5px; font-family: var(--font-mono);
+  color: var(--ink-soft);
+  margin: 0 0 10px;
+}
+.lightbox__obtained .icon { width: 13px; height: 13px; flex-shrink: 0; }
+.lightbox__detail { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; margin: 0 0 16px; }
+.lightbox__nolink { font-size: 13.5px; color: var(--ink-soft); }

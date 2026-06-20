@@ -1,0 +1,45 @@
+.carousel {
+  position: relative;
+  background: var(--bg-alt);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  overflow: hidden;
+}
+.carousel__viewport { display: flex; transition: transform .35s ease; }
+
+.carousel__slide {
+  flex: 0 0 100%;
+  aspect-ratio: 16/9;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-alt);
+}
+.carousel__slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.carousel__nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(16,19,28,.5);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(2px);
+  transition: background .15s ease;
+}
+.carousel__nav:hover { background: rgba(16,19,28,.72); }
+.carousel__nav--prev { left: 12px; }
+.carousel__nav--next { right: 12px; }
+.carousel__nav .icon { width: 18px; height: 18px; }
+
+.carousel__dots {
+  position: absolute; bottom: 12px; left: 0; right: 0;
+  display: flex; justify-content: center; gap: 6px;
+}
+.carousel__dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,.5);
+  border: none; padding: 0;
+  transition: background .15s ease, transform .15s ease;
+  cursor: pointer;
+}
+.carousel__dot.is-active { background: #fff; transform: scale(1.35); }
+
+.carousel--single .carousel__nav,
+.carousel--single .carousel__dots { display: none; }
