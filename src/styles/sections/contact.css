@@ -47,6 +47,29 @@
 .contact-actions { display: flex; flex-direction: column; gap: 16px; }
 .contact-actions .btn { justify-content: center; font-size: 16px; padding: 16px 24px; }
 
+.contact-socials {
+  display: flex;
+  gap: 12px;
+  padding-top: 4px;
+}
+.contact-social__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color: #9099B3;
+  transition: background .18s, color .18s, border-color .18s;
+}
+.contact-social__btn:hover {
+  background: rgba(255,255,255,.14);
+  border-color: rgba(255,255,255,.28);
+  color: #fff;
+}
+.contact-social__btn .icon { width: 20px; height: 20px; }
+
 @media (max-width: 860px) {
   .contact__grid { grid-template-columns: 1fr; gap: 36px; }
 }

@@ -112,4 +112,5 @@
 
 @media (max-width: 700px) {
   .projects-carousel__track { grid-template-columns: 1fr; min-height: unset; }
+  .projects-carousel__nav { display: none; }
 }

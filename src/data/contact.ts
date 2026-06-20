@@ -1,3 +1,10 @@
+export interface SocialLink {
+  readonly id: string;
+  readonly icon: string;
+  readonly label: string;
+  readonly href: string;
+}
+
 export interface Contact {
   readonly eyebrow: string;
   readonly heading: string;
@@ -7,6 +14,7 @@ export interface Contact {
   readonly phone: string;
   readonly phoneHref: string;
   readonly location: string;
+  readonly socials: SocialLink[];
 }
 
 export const CONTACT: Contact = {
@@ -18,4 +26,9 @@ export const CONTACT: Contact = {
   phone: '+51 917 845 429',
   phoneHref: '+51917845429',
   location: 'Lima, Perú',
+  socials: [
+    { id: 'linkedin', icon: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/in/daniel-gutierrez-villegas' },
+    { id: 'github',   icon: 'github',   label: 'GitHub',   href: 'https://github.com/danielgutierrez13' },
+    { id: 'whatsapp', icon: 'whatsapp', label: 'WhatsApp', href: 'https://wa.me/51917845429' },
+  ],
 };

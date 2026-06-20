@@ -1,7 +1,8 @@
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { SectionHead } from '../../ui/SectionHead';
 import { Button } from '../../ui/Button';
-import { CONTACT } from '../../../data/contact';
+import { Icon } from '../../ui/Icon';
+import { CONTACT, type SocialLink } from '../../../data/contact';
 
 interface TerminalProps {
   readonly name: string;
@@ -38,20 +39,35 @@ function Terminal({ name, email, phone, location }: TerminalProps) {
 interface ContactActionsProps {
   readonly email: string;
   readonly phoneHref: string;
+  readonly socials: SocialLink[];
 }
 
-function ContactActions({ email, phoneHref }: ContactActionsProps) {
+function ContactActions({ email, phoneHref, socials }: ContactActionsProps) {
   const ref = useScrollReveal();
   return (
     <div className="contact-actions reveal" ref={ref}>
       <Button variant="primary" href={`mailto:${email}`} icon="mail">Escribir un correo</Button>
       <Button variant="light" href={`tel:${phoneHref}`} icon="phone">Llamar ahora</Button>
+      <div className="contact-socials">
+        {socials.map((s) => (
+          <a
+            key={s.id}
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-social__btn"
+            aria-label={s.label}
+          >
+            <Icon id={s.icon} />
+          </a>
+        ))}
+      </div>
     </div>
   );
 }
 
 export function Contact() {
-  const { eyebrow, heading, description, name, email, phone, phoneHref, location } = CONTACT;
+  const { eyebrow, heading, description, name, email, phone, phoneHref, location, socials } = CONTACT;
 
   return (
     <section className="contact" id="contacto">
@@ -59,7 +75,7 @@ export function Contact() {
         <SectionHead eyebrow={eyebrow} heading={heading} description={description} />
         <div className="contact__grid">
           <Terminal name={name} email={email} phone={phone} location={location} />
-          <ContactActions email={email} phoneHref={phoneHref} />
+          <ContactActions email={email} phoneHref={phoneHref} socials={socials} />
         </div>
       </div>
     </section>
