@@ -8,12 +8,15 @@ Portafolio profesional personal de una sola página (SPA) construido con React 1
 
 - Tema oscuro / claro persistido en `localStorage` con transición sin parpadeo
 - Animaciones de entrada mediante `IntersectionObserver` (scroll reveal)
-- Carrusel táctil de imágenes con soporte swipe en móvil
-- Lightbox accesible nativo (`<dialog>`) para certificados, diplomas y constancias laborales
+- Carrusel táctil de imágenes con soporte swipe en móvil y flag de confidencialidad
+- Lightbox accesible nativo (`<dialog>`) para certificados, diplomas, proyectos y constancias
 - Timeline de experiencia profesional con indicador de estado activo
-- Grid de capacitaciones agrupadas por proveedor con chip interactivo
+- Grid de proyectos con historial de releases y control de visibilidad por confidencialidad
+- Grid de capacitaciones agrupadas por proveedor con chip interactivo y detalle en lightbox
+- Layout de formación en columna única con cert-grid de 3 columnas responsivo
 - Diseño responsivo adaptado a móvil, tablet y escritorio
 - SVG sprite inline — sin peticiones externas de iconos
+- Interfaces TypeScript co-ubicadas con sus datos en `src/data/` — sin barrel files
 - Tipado estricto en todo el proyecto (`strict: true`, `noUnusedLocals`, `noUnusedParameters`)
 - Cero dependencias de librerías de UI externas — CSS vanilla con design tokens
 - Suite de tests unitarios con Vitest + Testing Library (121 tests)
@@ -103,27 +106,15 @@ mi-portafolio/
 │   ├── index.css                        # Punto de entrada de estilos (@imports)
 │   ├── vite-env.d.ts                    # Referencia de tipos para Vite
 │   │
-│   ├── types/                           # Interfaces TypeScript por sección
-│   │   ├── nav.ts                       # NavLink
-│   │   ├── hero.ts                      # HeroMeta, Hero
-│   │   ├── about.ts                     # AboutFact, Language, About
-│   │   ├── stack.ts                     # SkillGroup, Stack
-│   │   ├── experience.ts                # ExperienceItem
-│   │   ├── projects.ts                  # Release, ProjectItem, Projects
-│   │   ├── education.ts                 # Degree, Cert, CertGroup, Education
-│   │   ├── contact.ts                   # Contact
-│   │   └── index.ts                     # Barrel: re-exporta todos los tipos
-│   │
-│   ├── data/                            # Constantes de datos por sección
-│   │   ├── nav.ts                       # NAV_LINKS
-│   │   ├── hero.ts                      # HERO
-│   │   ├── about.ts                     # ABOUT
-│   │   ├── stack.ts                     # STACK
-│   │   ├── experience.ts                # EXPERIENCE
-│   │   ├── projects.ts                  # PROJECTS
-│   │   ├── education.ts                 # EDUCATION
-│   │   ├── contact.ts                   # CONTACT
-│   │   └── portfolio.ts                 # Barrel: re-exporta tipos y datos (compatibilidad)
+│   ├── data/                            # Interfaces + constantes co-ubicadas por sección
+│   │   ├── nav.ts                       # NavLink · NAV_LINKS
+│   │   ├── hero.ts                      # HeroMeta, Hero · HERO
+│   │   ├── about.ts                     # AboutFact, Language, About · ABOUT
+│   │   ├── stack.ts                     # SkillGroup, Stack · STACK
+│   │   ├── experience.ts                # ExperienceItem · EXPERIENCE
+│   │   ├── projects.ts                  # Release, ProjectItem, Projects · PROJECTS
+│   │   ├── education.ts                 # Degree, Cert, CertGroup, Education · EDUCATION
+│   │   └── contact.ts                   # Contact · CONTACT
 │   │
 │   ├── context/
 │   │   ├── ThemeContext.ts              # Definición del contexto de tema
