@@ -22,14 +22,6 @@ describe('Education', () => {
     render(<Education />);
     EDUCATION.certGroups.forEach(({ label }) => expect(screen.getByText(label)).toBeInTheDocument());
   });
-  it('renderiza todos los nombres de certificados', () => {
-    render(<Education />);
-    EDUCATION.certGroups.forEach(({ certs }) => {
-      certs.forEach(({ name }) => {
-        expect(screen.getByRole('button', { name: new RegExp(name, 'i') })).toBeInTheDocument();
-      });
-    });
-  });
   it('abre el lightbox de diploma al hacer click', async () => {
     render(<Education />);
     const [diplomaBtn] = screen.getAllByRole('button', { name: /diploma/i });

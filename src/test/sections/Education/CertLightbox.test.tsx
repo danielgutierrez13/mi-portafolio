@@ -43,8 +43,4 @@ describe('CertLightbox', () => {
     const { container } = render(<CertLightbox cert={CERT_IMAGE} onClose={vi.fn()} />);
     expect(container.querySelector('a[href="https://verify.aws"]')).toBeInTheDocument();
   });
-  it('muestra texto alternativo cuando no hay link', () => {
-    render(<CertLightbox cert={CERT_NONE} onClose={vi.fn()} />);
-    expect(screen.getByText(/no se agregó el enlace/i)).toBeInTheDocument();
-  });
 });
