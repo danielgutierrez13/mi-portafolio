@@ -27,6 +27,6 @@ export const STACK: Stack = {
     { id: 'backend', label: '// backend & automatizacion', chips: ['Spring Boot', 'Symfony', 'Express JS', '.Net Framework', 'RPA UiPath'] },
     { id: 'cloud', label: '// cloud & devops', chips: ['Azure', 'AWS', 'Docker', 'Git & GitHub', 'GitHub Actions', 'Dependabot', 'GitHub Projects'] },
     { id: 'db', label: '// bases-de-datos', chips: ['SQL Server', 'PostgreSQL', 'MySQL', 'MongoDB', 'Oracle'] },
-    { id: 'calidad', label: '// calidad & monitoreo', chips: ['Jira', 'SonarQube', 'Grafana'] },
+    { id: 'calidad', label: '// calidad & monitoreo', chips: ['Jira', 'SonarQube', 'Grafana', 'Swagger Hub'] },
   ],
 };

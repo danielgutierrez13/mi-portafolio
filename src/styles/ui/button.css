@@ -29,7 +29,8 @@
 .btn--ghost:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
 
 .btn--light {
-  background: #fff;
+  background: var(--surface);
   color: var(--ink);
+  border: 1.5px solid var(--border);
 }
-.btn--light:hover { transform: translateY(-1px); }
+.btn--light:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
