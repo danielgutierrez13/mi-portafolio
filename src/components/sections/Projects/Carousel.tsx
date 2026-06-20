@@ -4,12 +4,15 @@ import { Icon } from '../../ui/Icon';
 
 const PLACEHOLDER = ['__placeholder__'];
 
-function EmptySlide() {
+interface EmptySlideProps {
+  readonly confidential?: boolean;
+}
+function EmptySlide({ confidential }: EmptySlideProps) {
   return (
     <div className="carousel__slide">
       <div className="lightbox__placeholder">
         <Icon id="image" />
-        <span>Capturas del proyecto pendientes de subir</span>
+        <span>{confidential ? 'Capturas no disponibles por confidencialidad' : 'Capturas del proyecto pendientes de subir'}</span>
       </div>
     </div>
   );
@@ -17,9 +20,10 @@ function EmptySlide() {
 
 interface CarouselProps {
   readonly images: string[];
+  readonly confidential?: boolean;
 }
 
-export function Carousel({ images }: CarouselProps) {
+export function Carousel({ images, confidential }: CarouselProps) {
   const hasSlides = images.length > 0;
   const slides = hasSlides ? images : PLACEHOLDER;
   const { current, go, prev, next } = useCarousel(slides);
@@ -56,7 +60,7 @@ export function Carousel({ images }: CarouselProps) {
                 <img src={src} alt="Captura del proyecto" />
               </div>
             ))
-          : <EmptySlide />}
+          : <EmptySlide confidential={confidential} />}
       </div>
 
       {!isSingle && (

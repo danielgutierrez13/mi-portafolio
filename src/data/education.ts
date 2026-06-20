@@ -4,7 +4,6 @@ export interface Degree {
   readonly institution: string;
   readonly degree: string;
   readonly date: string;
-  readonly obtained: string;
   readonly document: string | null;
 }
 
@@ -45,7 +44,6 @@ export const EDUCATION: Education = {
       institution: 'Universidad Nacional de Piura',
       degree: 'Bachiller en Ingeniería Informática',
       date: 'Mar. 2018 — Mar. 2023',
-      obtained: 'Mar. 2023',
       document: '/docs/certs/bachiller.pdf',
     },
   ],

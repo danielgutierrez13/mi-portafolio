@@ -31,12 +31,12 @@ export function ProjectLightbox({ project, onClose }: ProjectLightboxProps) {
     <Lightbox isOpen={project !== null} onClose={onClose} wide labelId="projectLightboxTitle">
       {project && (
         <>
-          <Carousel images={project.images} />
+          <Carousel images={project.images} confidential={project.confidential} />
           <div className="lightbox__meta">
             <span className="lightbox__provider">{project.role}</span>
             <h3 id="projectLightboxTitle">{project.title}</h3>
             <ReleaseTimeline releases={project.releaseHistory} />
-            {project.link ? (
+            {project.confidential ? null : project.link ? (
               <Button variant="primary" href={project.link} target="_blank" rel="noopener" icon="external">
                 Visitar proyecto
               </Button>

@@ -69,7 +69,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       'Integración con ecosistema AWS (Cognito, SES, SNS) para autenticación y mensajería distribuida.',
       'Gestión de despliegues y observabilidad en AWS con CloudWatch.',
     ],
-    chips: ['Spring Boot', 'Angular', 'AWS Cognito', 'JUnit', 'CloudWatch'],
+    chips: ['Spring Boot', 'Angular', 'AWS', 'JUnit', 'CloudWatch'],
     certificate: null,
   },
   {

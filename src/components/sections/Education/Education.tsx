@@ -57,7 +57,6 @@ function DegreeLightbox({ degree, onClose }: DegreeLightboxProps) {
           <div className="lightbox__meta">
             <span className="lightbox__provider">{degree.institution}</span>
             <h3 id="degreeLightboxTitle">{degree.degree}</h3>
-            <p className="lightbox__obtained"><Icon id="calendar" />Obtenido: {degree.obtained}</p>
             <p className="lightbox__nolink">{degree.date}</p>
           </div>
         </>
