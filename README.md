@@ -8,12 +8,15 @@ Portafolio profesional personal de una sola página (SPA) construido con React 1
 
 - Tema oscuro / claro persistido en `localStorage` con transición sin parpadeo
 - Animaciones de entrada mediante `IntersectionObserver` (scroll reveal)
-- Carrusel táctil de imágenes con soporte swipe en móvil y flag de confidencialidad
-- Lightbox accesible nativo (`<dialog>`) para certificados, diplomas, proyectos y constancias
-- Timeline de experiencia profesional con indicador de estado activo
-- Grid de proyectos con historial de releases y control de visibilidad por confidencialidad
-- Grid de capacitaciones agrupadas por proveedor con chip interactivo y detalle en lightbox
-- Layout de formación en columna única con cert-grid de 3 columnas responsivo
+- Carrusel de proyectos paginado (2 cards/página desktop, 1 móvil) con swipe táctil y botones laterales ocultos en mobile
+- Carrusel de capacitaciones paginado (3 grupos/página) con swipe táctil
+- Hook `useSwipe` compartido entre carruseles — sin duplicación de lógica
+- Lightbox accesible nativo (`<dialog>`) para certificados, diplomas, proyectos, constancias y CV
+- Botón "Ver CV" en Hero abre preview del PDF con descarga directa
+- Timeline de experiencia profesional con badge de modalidad (remoto / híbrido / presencial)
+- Sección de referencias profesionales con iconos de contacto condicionales (teléfono, email, LinkedIn)
+- Carrusel de imágenes de proyecto con flag `confidential` que oculta capturas y enlaces externos
+- Iconos de redes sociales (LinkedIn, GitHub, WhatsApp) en sección de contacto
 - Diseño responsivo adaptado a móvil, tablet y escritorio
 - SVG sprite inline — sin peticiones externas de iconos
 - Interfaces TypeScript co-ubicadas con sus datos en `src/data/` — sin barrel files
@@ -99,7 +102,10 @@ Portafolio profesional personal de una sola página (SPA) construido con React 1
 mi-portafolio/
 ├── public/
 │   ├── favicon.svg                      # Favicon estilo terminal (> _)
-│   └── docs/                            # Diplomas, certificados y constancias (PDF/imagen)
+│   └── docs/                            # Diplomas, certificados, constancias y CV (PDF/imagen)
+│       ├── cv/                          # CV en PDF (cv-simple.pdf)
+│       ├── experience/                  # Certificados de trabajo por empresa
+│       └── projects/                    # Capturas de proyectos públicos
 ├── src/
 │   ├── main.tsx                         # Entry point — monta <App> con StrictMode
 │   ├── App.tsx                          # Raíz: ThemeProvider + secciones de la página
@@ -111,10 +117,11 @@ mi-portafolio/
 │   │   ├── hero.ts                      # HeroMeta, Hero · HERO
 │   │   ├── about.ts                     # AboutFact, Language, About · ABOUT
 │   │   ├── stack.ts                     # SkillGroup, Stack · STACK
-│   │   ├── experience.ts                # ExperienceItem · EXPERIENCE
+│   │   ├── experience.ts                # Modality, ExperienceItem, Reference · EXPERIENCE, REFERENCES
 │   │   ├── projects.ts                  # Release, ProjectItem, Projects · PROJECTS
 │   │   ├── education.ts                 # Degree, Cert, CertGroup, Education · EDUCATION
-│   │   └── contact.ts                   # Contact · CONTACT
+│   │   ├── contact.ts                   # SocialLink, Contact · CONTACT
+│   │   └── cv.ts                        # Cv · CV
 │   │
 │   ├── context/
 │   │   ├── ThemeContext.ts              # Definición del contexto de tema
@@ -123,7 +130,8 @@ mi-portafolio/
 │   │
 │   ├── hooks/
 │   │   ├── useScrollReveal.ts           # IntersectionObserver genérico para animaciones
-│   │   └── useCarousel.ts               # Lógica de estado del carrusel de imágenes
+│   │   ├── useCarousel.ts               # Lógica de estado del carrusel de imágenes
+│   │   └── useSwipe.ts                  # Touch swipe compartido entre carruseles paginados
 │   │
 │   ├── components/
 │   │   ├── Nav.tsx                      # Navegación sticky + menú móvil + theme toggle
@@ -144,23 +152,23 @@ mi-portafolio/
 │   │   │
 │   │   └── sections/
 │   │       ├── Hero/
-│   │       │   ├── Hero.tsx             # Sección principal con pitch y API card
-│   │       │   └── ApiCard.tsx          # Tarjeta decorativa estilo JSON
+│   │       │   ├── Hero.tsx             # Pitch, acciones, lightbox CV y API card
+│   │       │   └── ApiCard.tsx          # Tarjeta decorativa estilo JSON/REST
 │   │       ├── About/
 │   │       │   └── About.tsx            # Monograma, datos, idiomas y bio
 │   │       ├── Stack/
 │   │       │   └── Stack.tsx            # Métricas y grid de habilidades
 │   │       ├── Experience/
-│   │       │   └── Experience.tsx       # Timeline con constancias laborales
+│   │       │   └── Experience.tsx       # Timeline con modalidad, constancias y referencias
 │   │       ├── Projects/
-│   │       │   ├── Projects.tsx         # Grid de tarjetas de proyecto
-│   │       │   ├── ProjectLightbox.tsx  # Modal: carrusel + releases + detalle
-│   │       │   └── Carousel.tsx         # Carrusel con swipe táctil
+│   │       │   ├── Projects.tsx         # Carrusel paginado de proyectos
+│   │       │   ├── ProjectLightbox.tsx  # Modal: carrusel de imágenes + releases + detalle
+│   │       │   └── Carousel.tsx         # Carrusel de imágenes con swipe táctil
 │   │       ├── Education/
-│   │       │   ├── Education.tsx        # Grados + capacitaciones + lightboxes
+│   │       │   ├── Education.tsx        # Grados + carrusel de capacitaciones + lightboxes
 │   │       │   └── CertLightbox.tsx     # Modal: imagen/PDF de certificado
 │   │       └── Contact/
-│   │           └── Contact.tsx          # Terminal decorativa + botones de contacto
+│   │           └── Contact.tsx          # Terminal decorativa + botones + redes sociales
 │   │
 │   ├── test/                            # Tests unitarios — espejo de src/
 │   │   ├── setup.ts                     # Configuración global: @testing-library/jest-dom
@@ -258,4 +266,4 @@ La suite de tests cubre todos los componentes, hooks y contexto:
 |-------------------|---------------------------------|
 | **Desarrollador** | Cesar Daniel Gutiérrez Villegas |
 | **Correo**        | dgutierrezvillegas@gmail.com    |
-| **Ubicación**     | Lima, Perú                      |
+| **Ubicación**     | Piura, Perú                     |

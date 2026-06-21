@@ -5,7 +5,19 @@ import { ChipRow } from '../../ui/Chip';
 import { Icon } from '../../ui/Icon';
 import { Lightbox } from '../../ui/Lightbox';
 import { Section } from '../../layout/Section';
-import { EXPERIENCE, type ExperienceItem } from '../../../data/experience';
+import { EXPERIENCE, REFERENCES, type ExperienceItem, type Modality } from '../../../data/experience';
+
+const MODALITY_LABEL: Record<Modality, string> = {
+  remoto: 'Remoto',
+  hibrido: 'Híbrido',
+  presencial: 'Presencial',
+};
+
+const MODALITY_ICON: Record<Modality, string> = {
+  remoto: 'globe',
+  hibrido: 'pin',
+  presencial: 'pin',
+};
 
 interface StatusTagProps {
   readonly active: boolean;
@@ -31,7 +43,7 @@ interface TimelineCardProps {
 }
 function TimelineCard({ item, onOpenCert }: TimelineCardProps) {
   const ref = useScrollReveal();
-  const { active, date, title, meta, bullets, chips, certificate } = item;
+  const { active, date, title, meta, modality, bullets, chips, certificate } = item;
 
   return (
     <div className={`timeline-item${active ? ' timeline-item--active' : ''} reveal`} ref={ref}>
@@ -42,6 +54,10 @@ function TimelineCard({ item, onOpenCert }: TimelineCardProps) {
         </div>
         <h3>{title}</h3>
         <p className="role-meta">{meta}</p>
+        <span className="modality-tag">
+          <Icon id={MODALITY_ICON[modality]} />
+          {MODALITY_LABEL[modality]}
+        </span>
         <ul>
           {bullets.map((b) => <li key={b}>{b}</li>)}
         </ul>
@@ -89,6 +105,49 @@ function WorkCertLightbox({ item, onClose }: CertLightboxProps) {
   );
 }
 
+function ReferencesBlock() {
+  const ref = useScrollReveal();
+  return (
+    <div className="references reveal" ref={ref}>
+      <h3 className="references__heading">
+        <Icon id="check" /> Referencias profesionales
+      </h3>
+      <div className="references__grid">
+        {REFERENCES.map((r) => (
+          <div key={r.id} className="ref-card">
+            <div className="ref-card__avatar">
+              {r.name.split(' ').slice(0, 2).map((n) => n[0]).join('')}
+            </div>
+            <div className="ref-card__body">
+              <strong>{r.name}</strong>
+              <span>{r.position}</span>
+              <span className="ref-card__company">{r.company}</span>
+              <em>{r.relationship}</em>
+            </div>
+            <div className="ref-card__links">
+              {r.phone && (
+                <a href={`tel:${r.phone.replace(/\s/g, '')}`} aria-label="Teléfono" className="ref-card__link">
+                  <Icon id="phone" />
+                </a>
+              )}
+              {r.email && (
+                <a href={`mailto:${r.email}`} aria-label="Email" className="ref-card__link">
+                  <Icon id="mail" />
+                </a>
+              )}
+              {r.linkedin && (
+                <a href={r.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="ref-card__link">
+                  <Icon id="linkedin" />
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function Experience() {
   const [activeCert, setActiveCert] = useState<ExperienceItem | null>(null);
 
@@ -104,6 +163,7 @@ export function Experience() {
           <TimelineCard key={item.id} item={item} onOpenCert={setActiveCert} />
         ))}
       </div>
+      <ReferencesBlock />
       <WorkCertLightbox item={activeCert} onClose={() => setActiveCert(null)} />
     </Section>
   );

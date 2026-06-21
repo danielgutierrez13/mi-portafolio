@@ -1,12 +1,26 @@
+export type Modality = 'remoto' | 'hibrido' | 'presencial';
+
 export interface ExperienceItem {
   readonly id: string;
   readonly active: boolean;
   readonly date: string;
   readonly title: string;
   readonly meta: string;
+  readonly modality: Modality;
   readonly bullets: string[];
   readonly chips: string[];
   readonly certificate: string | null;
+}
+
+export interface Reference {
+  readonly id: string;
+  readonly name: string;
+  readonly position: string;
+  readonly company: string;
+  readonly relationship: string;
+  readonly phone: string | null;
+  readonly linkedin: string | null;
+  readonly email: string | null;
 }
 
 export const EXPERIENCE: ExperienceItem[] = [
@@ -16,6 +30,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     date: '2025.11 → actual',
     title: 'Full Stack Developer .Net / Angular',
     meta: 'JNE, Lima, Perú',
+    modality: 'remoto',
     bullets: [
       'Desarrollo de APIs RESTful con .NET Framework, exponiendo servicios consumidos por módulos Angular con arquitectura por componentes.',
       'Modelado y administración de base de datos Oracle: diseño de esquemas, stored procedures y packages para encapsular lógica de negocio compleja.',
@@ -31,7 +46,8 @@ export const EXPERIENCE: ExperienceItem[] = [
     active: true,
     date: '2025.08 → actual',
     title: 'Software Engineer II',
-    meta: 'Encora, Lima, Perú — Cliente: Pacífico Seguros',
+    meta: 'Encora / Coforge, Lima, Perú — Cliente: Pacífico Seguros',
+    modality: 'remoto',
     bullets: [
       'Diseño de APIs bajo enfoque API‑First, definiendo contratos desacoplados entre dominios.',
       'Evolución de microservicios reactivos con Spring Boot en Azure.',
@@ -48,6 +64,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     date: '2023.10 → 2025.07',
     title: 'Java Backend Cloud',
     meta: 'Inetum Perú S.A.C., Lima, Perú — Cliente: Pacífico Seguros',
+    modality: 'remoto',
     bullets: [
       'Desarrollo y mantenimiento de microservicios con Spring Boot (Java 17) en Azure.',
       'Integración con Azure Queues y Azure Data Factory (ADF).',
@@ -63,6 +80,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     date: '2023.10 → 2024.05',
     title: 'Full Stack Developer Java – Angular JS',
     meta: 'Devstream, Lima, Perú — Cliente: Redeban Colombia',
+    modality: 'remoto',
     bullets: [
       'Microservicios reactivos con Spring Boot (Java 17) y frontend en Angular, orientados a escalabilidad y rendimiento.',
       'Estrategia de calidad con pruebas unitarias y de integración (JUnit, Mockito, Jasmine, Karma).',
@@ -78,6 +96,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     date: '2022.07 → 2023.09',
     title: 'FullStack Developer Java – Angular JS – React – RPA',
     meta: 'MDP Consulting, Lima, Perú — Cliente: Banco Redeban Colombia, Pacífico Seguros',
+    modality: 'remoto',
     bullets: [
       'Microservicios con Spring Boot (Java 17) y programación reactiva.',
       'Frontend con Angular (Redeban) y React (Pacífico).',
@@ -93,6 +112,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     date: '2022.05 → 2023.10',
     title: 'FullStack Developer PHP – Angular JS',
     meta: 'PIDIA S.R.L., Piura, Perú — Cliente: Sistemas Varios',
+    modality: 'remoto',
     bullets: [
       'Backend con Symfony (PHP) bajo arquitectura modular y buenas prácticas.',
       'Frontend con AngularJS orientado a experiencia de usuario.',
@@ -108,6 +128,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     date: '2022.04 → 2022.06',
     title: 'Training Bootcamp MDP',
     meta: 'MDP Consulting, Lima, Perú',
+    modality: 'remoto',
     bullets: [
       'Programa intensivo en arquitectura limpia, principios SOLID y buenas prácticas de desarrollo.',
       'Formación en backend con Java y frontend con Angular y React.',
@@ -123,6 +144,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     date: '2022.02 → 2022.05',
     title: 'Practicante Preprofesional FullStack Developer PHP – Angular JS',
     meta: 'PIDIA S.R.L., Piura, Perú — Cliente: Sistemas Varios',
+    modality: 'remoto',
     bullets: [
       'Desarrollo de funcionalidades backend y frontend utilizando Symfony (PHP).',
       'Mantenimiento y mejora de módulos existentes del sistema.',
@@ -131,5 +153,18 @@ export const EXPERIENCE: ExperienceItem[] = [
     ],
     chips: ['Symfony', 'MySQL'],
     certificate: '/docs/experience/pidia-practicaspre.pdf',
+  },
+];
+
+export const REFERENCES: Reference[] = [
+  {
+    id: 'ref-pidia',
+    name: 'Carlos Chininin',
+    position: 'Jefe de desarrollo',
+    company: 'PIDIA S.R.L.',
+    relationship: 'Jefe directo',
+    phone: '+51 938 170 744',
+    email: null,
+    linkedin: 'https://www.linkedin.com/in/carloschininin/',
   },
 ];

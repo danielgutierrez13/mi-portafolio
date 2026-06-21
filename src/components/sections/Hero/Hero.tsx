@@ -1,7 +1,8 @@
-import { type ReactNode, useState, useEffect, useRef } from 'react';
+import { type ReactNode, useState } from 'react';
 import { Icon } from '../../ui/Icon';
 import { Button } from '../../ui/Button';
 import { Eyebrow } from '../../ui/Eyebrow';
+import { Lightbox } from '../../ui/Lightbox';
 import { ApiCard } from './ApiCard';
 import { HERO, type HeroMeta } from '../../../data/hero';
 import { CV } from '../../../data/cv';
@@ -27,56 +28,26 @@ function HeroMetaList({ items }: HeroMetaListProps): ReactNode {
   );
 }
 
-function CvDropdown() {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
-  }, []);
-
+function CvModal({ open, onClose }: { readonly open: boolean; readonly onClose: () => void }) {
   return (
-    <div className="cv-dropdown" ref={ref}>
-      <button
-        type="button"
-        className="btn btn--ghost cv-dropdown__trigger"
-        onClick={() => setOpen((o) => !o)}
-        aria-haspopup="true"
-        aria-expanded={open}
-      >
-        <Icon id="download" /> CV <Icon id="chevron-right" className={`cv-dropdown__caret${open ? ' cv-dropdown__caret--open' : ''}`} />
-      </button>
-      {open && (
-        <div className="cv-dropdown__menu" role="menu">
-          {CV.variants.map((v) => (
-            <a
-              key={v.id}
-              href={v.file}
-              download
-              className="cv-dropdown__item"
-              role="menuitem"
-              onClick={() => setOpen(false)}
-            >
-              <Icon id="file-pdf" />
-              <span>
-                <strong>{v.label}</strong>
-                <em>{v.description.split('.')[0]}</em>
-              </span>
-            </a>
-          ))}
-        </div>
-      )}
-    </div>
+    <Lightbox isOpen={open} onClose={onClose} labelId="cvLightboxTitle">
+      <div className="lightbox__image-wrap">
+        <iframe src={CV.file} title={CV.label} className="lightbox__pdf" />
+      </div>
+      <div className="lightbox__meta">
+        <h3 id="cvLightboxTitle">{CV.label}</h3>
+        <a href={CV.file} download className="btn btn--primary" style={{ marginTop: 8 }}>
+          <Icon id="download" /> Descargar CV
+        </a>
+      </div>
+    </Lightbox>
   );
 }
 
 export function Hero() {
   const { eyebrow, name, role, pitch, meta } = HERO;
   const [firstName, lastName] = name.split('\n');
+  const [cvOpen, setCvOpen] = useState(false);
 
   return (
     <section className="hero" id="inicio">
@@ -97,12 +68,15 @@ export function Hero() {
           <div className="hero__actions">
             <Button variant="primary" href="#contacto" icon="arrow">Hablemos</Button>
             <Button variant="ghost" href="#experiencia">Ver experiencia</Button>
-            <CvDropdown />
+            <button type="button" className="btn btn--ghost" onClick={() => setCvOpen(true)}>
+              <Icon id="download" /> Ver CV
+            </button>
           </div>
           <HeroMetaList items={meta} />
         </div>
         <ApiCard />
       </div>
+      <CvModal open={cvOpen} onClose={() => setCvOpen(false)} />
     </section>
   );
 }
