@@ -167,4 +167,14 @@ export const REFERENCES: Reference[] = [
     email: null,
     linkedin: 'https://www.linkedin.com/in/carloschininin/',
   },
+  {
+    id: 'ref-mdp',
+    name: 'Renée Maldonado',
+    position: 'Project Delivery Manager',
+    company: 'MDP Consulting',
+    relationship: 'Jefe directo',
+    phone: '+51 966 713 882',
+    email: null,
+    linkedin: 'https://www.linkedin.com/in/renee-del-pilar-maldonado-farfan/',
+  },
 ];

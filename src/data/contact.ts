@@ -25,7 +25,7 @@ export const CONTACT: Contact = {
   email: 'dgutierrezvillegas@gmail.com',
   phone: '+51 917 845 429',
   phoneHref: '+51917845429',
-  location: 'Lima, Perú',
+  location: 'Piura, Perú',
   socials: [
     { id: 'linkedin', icon: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/in/daniel-gutierrez-villegas' },
     { id: 'github',   icon: 'github',   label: 'GitHub',   href: 'https://github.com/danielgutierrez13' },
