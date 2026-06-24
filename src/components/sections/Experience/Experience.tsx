@@ -7,6 +7,28 @@ import { Lightbox } from '../../ui/Lightbox';
 import { Section } from '../../layout/Section';
 import { EXPERIENCE, REFERENCES, type ExperienceItem, type Modality } from '../../../data/experience';
 
+function parseDuration(dateRange: string): string {
+  const [startStr, endStr] = dateRange.split(' → ');
+  const [startY, startM] = startStr.split('.').map(Number);
+  const now = new Date();
+  let endY: number, endM: number;
+  if (endStr === 'actual') {
+    endY = now.getFullYear();
+    endM = now.getMonth() + 1;
+  } else {
+    [endY, endM] = endStr.split('.').map(Number);
+  }
+  let months = (endY - startY) * 12 + (endM - startM);
+  if (endStr !== 'actual') months += 1;
+  const years = Math.floor(months / 12);
+  const rem = months % 12;
+  if (years === 0) return rem === 1 ? '1 mes' : `${rem} meses`;
+  if (rem === 0) return years === 1 ? '1 año' : `${years} años`;
+  const yPart = years === 1 ? '1 año' : `${years} años`;
+  const mPart = rem === 1 ? '1 mes' : `${rem} meses`;
+  return `${yPart} ${mPart}`;
+}
+
 const MODALITY_LABEL: Record<Modality, string> = {
   remoto: 'Remoto',
   hibrido: 'Híbrido',
@@ -50,6 +72,7 @@ function TimelineCard({ item, onOpenCert }: TimelineCardProps) {
       <div className="timeline-card">
         <div className="timeline-card__top">
           <span className="tag-date">{date}</span>
+          <span className="tag-duration">{parseDuration(date)}</span>
           <StatusTag active={active} />
         </div>
         <h3>{title}</h3>
