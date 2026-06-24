@@ -27,14 +27,53 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 26px 28px;
+  overflow: hidden;
 }
+.timeline-card--open { border-color: color-mix(in srgb, var(--primary) 35%, var(--border)); }
+
+.timeline-card__header {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 22px 24px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: background .15s;
+}
+.timeline-card__header:hover { background: var(--bg-alt); }
+
+.timeline-card__summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.timeline-card__caret {
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  color: var(--ink-soft);
+  transition: transform .2s;
+  transform: rotate(90deg);
+  margin-top: 4px;
+}
+.timeline-card__caret--open { transform: rotate(270deg); }
+
+.timeline-card__body {
+  padding: 0 24px 22px;
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+}
+
 .timeline-card__top {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .tag-date {
@@ -72,24 +111,22 @@
   font-family: var(--font-display);
   font-size: 21px;
   font-weight: 700;
-  margin-bottom: 4px;
 }
-.timeline-card .role-meta { font-size: 14.5px; color: var(--ink-soft); margin-bottom: 10px; }
+.timeline-card .role-meta { font-size: 14.5px; color: var(--ink-soft); margin: 4px 0 8px; }
 
 .modality-tag {
   display: inline-flex;
   align-items: center;
   gap: 5px;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--primary);
   background: color-mix(in srgb, var(--primary) 10%, transparent);
-  padding: 3px 10px;
-  border-radius: 999px;
-  margin-bottom: 16px;
+  padding: 4px 10px;
+  border-radius: 6px;
 }
 .modality-tag .icon { width: 12px; height: 12px; }
-.timeline-card ul { display: flex; flex-direction: column; gap: 9px; margin-bottom: 18px; }
+.timeline-card__body ul { display: flex; flex-direction: column; gap: 9px; margin-bottom: 18px; }
 .timeline-card li {
   font-size: 15px;
   color: var(--ink);

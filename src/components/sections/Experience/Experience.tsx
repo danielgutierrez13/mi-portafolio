@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useId } from 'react';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { SectionHead } from '../../ui/SectionHead';
 import { ChipRow } from '../../ui/Chip';
@@ -65,31 +65,48 @@ interface TimelineCardProps {
 }
 function TimelineCard({ item, onOpenCert }: TimelineCardProps) {
   const ref = useScrollReveal();
+  const bodyId = useId();
   const { active, date, title, meta, modality, bullets, chips, certificate } = item;
+  const [open, setOpen] = useState(active);
 
   return (
     <div className={`timeline-item${active ? ' timeline-item--active' : ''} reveal`} ref={ref}>
-      <div className="timeline-card">
-        <div className="timeline-card__top">
-          <span className="tag-date">{date}</span>
-          <span className="tag-duration">{parseDuration(date)}</span>
-          <StatusTag active={active} />
-        </div>
-        <h3>{title}</h3>
-        <p className="role-meta">{meta}</p>
-        <span className="modality-tag">
-          <Icon id={MODALITY_ICON[modality]} />
-          {MODALITY_LABEL[modality]}
-        </span>
-        <ul>
-          {bullets.map((b) => <li key={b}>{b}</li>)}
-        </ul>
-        <ChipRow chips={chips} />
-        {!active && (
-          <button type="button" className="edu-card__doc-btn" onClick={() => onOpenCert(item)}>
-            <Icon id={certificate ? (certificate.toLowerCase().endsWith('.pdf') ? 'external' : 'image') : 'image'} />
-            {certificate ? 'Ver certificado de trabajo' : 'Certificado pendiente de subir'}
-          </button>
+      <div className={`timeline-card${open ? ' timeline-card--open' : ''}`}>
+        <button
+          type="button"
+          className="timeline-card__header"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          aria-controls={bodyId}
+        >
+          <div className="timeline-card__top">
+            <span className="tag-date">{date}</span>
+            <span className="tag-duration">{parseDuration(date)}</span>
+            <span className="modality-tag">
+              <Icon id={MODALITY_ICON[modality]} />
+              {MODALITY_LABEL[modality]}
+            </span>
+            <StatusTag active={active} />
+          </div>
+          <div className="timeline-card__summary">
+            <h3>{title}</h3>
+            <Icon id="chevron-right" className={`timeline-card__caret${open ? ' timeline-card__caret--open' : ''}`} />
+          </div>
+          <p className="role-meta">{meta}</p>
+        </button>
+        {open && (
+          <div className="timeline-card__body" id={bodyId}>
+            <ul>
+              {bullets.map((b) => <li key={b}>{b}</li>)}
+            </ul>
+            <ChipRow chips={chips} />
+            {!active && (
+              <button type="button" className="edu-card__doc-btn" onClick={() => onOpenCert(item)}>
+                <Icon id={certificate ? (certificate.toLowerCase().endsWith('.pdf') ? 'external' : 'image') : 'image'} />
+                {certificate ? 'Ver certificado de trabajo' : 'Certificado pendiente de subir'}
+              </button>
+            )}
+          </div>
         )}
       </div>
     </div>
