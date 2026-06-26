@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { useSwipe } from '../../../hooks/useSwipe';
 import { SectionHead } from '../../ui/SectionHead';
@@ -78,33 +78,58 @@ function CertChip({ cert, onOpen }: CertChipProps) {
   );
 }
 
+const CERT_PREVIEW = 4;
+
 interface CertCardProps {
   readonly group: CertGroup;
   readonly onOpen: (c: Cert) => void;
 }
 function CertCard({ group, onOpen }: CertCardProps) {
+  const [expanded, setExpanded] = useState(false);
+  const visible = expanded ? group.certs : group.certs.slice(0, CERT_PREVIEW);
+  const hidden = group.certs.length - CERT_PREVIEW;
   return (
     <div className="cert-card">
       <h4>{group.label}</h4>
       <div className="chip-row">
-        {group.certs.map((cert) => (
+        {visible.map((cert) => (
           <CertChip key={cert.id} cert={cert} onOpen={onOpen} />
         ))}
+        {!expanded && hidden > 0 && (
+          <button type="button" className="chip cert-card__more" onClick={() => setExpanded(true)}>
+            +{hidden} más
+          </button>
+        )}
+        {expanded && hidden > 0 && (
+          <button type="button" className="chip cert-card__more" onClick={() => setExpanded(false)}>
+            Ver menos
+          </button>
+        )}
       </div>
     </div>
   );
 }
 
-const PER_PAGE = 3;
+function usePerPage() {
+  const [perPage, setPerPage] = useState(() => window.innerWidth <= 600 ? 1 : 3);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 600px)');
+    const handler = (e: MediaQueryListEvent) => setPerPage(e.matches ? 1 : 3);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+  return perPage;
+}
 
 export function Education() {
   const [activeCert, setActiveCert] = useState<Cert | null>(null);
   const [activeDegree, setActiveDegree] = useState<Degree | null>(null);
   const [current, setCurrent] = useState(0);
+  const perPage = usePerPage();
   const degreeRef = useScrollReveal();
   const { eyebrow, heading, description, degrees, certGroups } = EDUCATION;
 
-  const pages = Math.ceil(certGroups.length / PER_PAGE);
+  const pages = Math.ceil(certGroups.length / perPage);
 
   const go = useCallback((page: number) => {
     setCurrent(((page % pages) + pages) % pages);
@@ -115,7 +140,7 @@ export function Education() {
 
   const certRef = useSwipe(prev, next);
 
-  const visible = certGroups.slice(current * PER_PAGE, current * PER_PAGE + PER_PAGE);
+  const visible = certGroups.slice(current * perPage, current * perPage + perPage);
 
   return (
     <Section id="formacion" alt>

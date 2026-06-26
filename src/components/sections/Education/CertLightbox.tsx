@@ -1,5 +1,4 @@
 import { Lightbox } from '../../ui/Lightbox';
-import { Button } from '../../ui/Button';
 import { Icon } from '../../ui/Icon';
 import { type Cert } from '../../../data/education';
 
@@ -35,12 +34,25 @@ export function CertLightbox({ cert, onClose }: CertLightboxProps) {
             <h3 id="certLightboxTitle">{cert.title}</h3>
             <p className="lightbox__obtained"><Icon id="calendar" />{cert.obtained}</p>
             <p className="lightbox__detail">{cert.detail}</p>
-            {cert.link ? (
-              <Button variant="primary" href={cert.link} target="_blank" rel="noopener" icon="external">
-                Ver verificación
-              </Button>
-            ) : (
-              <p className="lightbox__nolink"></p>
+            {cert.links.length > 0 && (
+              <div className="lightbox__verify-row">
+                <div className="lightbox__verify-icons">
+                  {cert.links.map((href, i) => (
+                    <a
+                      key={href}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={cert.links.length === 1 ? 'Ver verificación' : `Verificación ${i + 1}`}
+                      className="lightbox__verify-btn"
+                      title={cert.links.length === 1 ? 'Ver verificación' : `Verificación ${i + 1}`}
+                    >
+                      <Icon id="external" />
+                      {cert.links.length > 1 && <span className="lightbox__verify-num">{i + 1}</span>}
+                    </a>
+                  ))}
+                </div>
+              </div>
             )}
           </div>
         </>
