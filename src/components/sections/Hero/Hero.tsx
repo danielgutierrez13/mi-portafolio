@@ -5,7 +5,8 @@ import { Eyebrow } from '../../ui/Eyebrow';
 import { Lightbox } from '../../ui/Lightbox';
 import { ApiCard } from './ApiCard';
 import { HERO, type HeroMeta } from '../../../data/hero';
-import { CV } from '../../../data/cv';
+import { CV_LABEL, CV_FILE_DEFAULT, CV_FILE_FULL } from '../../../data/cv';
+import { useFlags } from '../../../config/flags';
 
 interface HeroMetaListProps {
   readonly items: HeroMeta[];
@@ -28,15 +29,21 @@ function HeroMetaList({ items }: HeroMetaListProps): ReactNode {
   );
 }
 
-function CvModal({ open, onClose }: { readonly open: boolean; readonly onClose: () => void }) {
+interface CvModalProps {
+  readonly open: boolean;
+  readonly onClose: () => void;
+  readonly file: string;
+}
+
+function CvModal({ open, onClose, file }: CvModalProps) {
   return (
     <Lightbox isOpen={open} onClose={onClose} labelId="cvLightboxTitle">
       <div className="lightbox__image-wrap">
-        <iframe src={CV.file} title={CV.label} className="lightbox__pdf" />
+        <iframe src={file} title={CV_LABEL} className="lightbox__pdf" />
       </div>
       <div className="lightbox__meta">
-        <h3 id="cvLightboxTitle">{CV.label}</h3>
-        <a href={CV.file} download className="btn btn--primary" style={{ marginTop: 8 }}>
+        <h3 id="cvLightboxTitle">{CV_LABEL}</h3>
+        <a href={file} download={`${CV_LABEL}.pdf`} className="btn btn--primary" style={{ marginTop: 8 }}>
           <Icon id="download" /> Descargar CV
         </a>
       </div>
@@ -45,6 +52,8 @@ function CvModal({ open, onClose }: { readonly open: boolean; readonly onClose: 
 }
 
 export function Hero() {
+  const { showJne } = useFlags();
+  const cvFile = showJne ? CV_FILE_FULL : CV_FILE_DEFAULT;
   const { eyebrow, name, role, pitch, meta } = HERO;
   const [firstName, lastName] = name.split('\n');
   const [cvOpen, setCvOpen] = useState(false);
@@ -76,7 +85,7 @@ export function Hero() {
         </div>
         <ApiCard />
       </div>
-      <CvModal open={cvOpen} onClose={() => setCvOpen(false)} />
+      <CvModal open={cvOpen} onClose={() => setCvOpen(false)} file={cvFile} />
     </section>
   );
 }

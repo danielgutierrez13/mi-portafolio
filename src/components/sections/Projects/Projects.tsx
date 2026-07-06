@@ -6,6 +6,7 @@ import { Section } from '../../layout/Section';
 import { ProjectLightbox } from './ProjectLightbox';
 import { useSwipe } from '../../../hooks/useSwipe';
 import { PROJECTS, type ProjectItem } from '../../../data/projects';
+import { useFlags } from '../../../config/flags';
 
 interface ProjectCardProps {
   readonly item: ProjectItem;
@@ -37,10 +38,12 @@ function ProjectCard({ item, onOpen }: ProjectCardProps) {
 }
 
 export function Projects() {
+  const { showJne } = useFlags();
   const [activeProject, setActiveProject] = useState<ProjectItem | null>(null);
   const [current, setCurrent] = useState(0);
   const [perPage, setPerPage] = useState(2);
-  const { eyebrow, heading, description, items } = PROJECTS;
+  const { eyebrow, heading, description, items: allItems } = PROJECTS;
+  const items = showJne ? allItems : allItems.filter((item) => item.badge !== 'JNE');
 
   const total = items.length;
   const pages = Math.ceil(total / perPage);
