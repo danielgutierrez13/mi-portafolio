@@ -3,8 +3,11 @@ export interface Release {
   readonly title: string;
 }
 
+export type ProjectCategory = 'laboral' | 'personal';
+
 export interface ProjectItem {
   readonly id: string;
+  readonly category: ProjectCategory;
   readonly placeholder: boolean;
   readonly confidential: boolean;
   readonly badge: string;
@@ -36,6 +39,7 @@ export const PROJECTS: Projects = {
   items: [
     {
       id: 'proyecto-stom',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'Pacífico Seguros',
@@ -67,6 +71,7 @@ export const PROJECTS: Projects = {
     },
     {
       id: 'proyecto-jne-capacitaciones',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'JNE',
@@ -90,6 +95,7 @@ export const PROJECTS: Projects = {
     },
     {
       id: 'proyecto-jne-riesgos',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'JNE',
@@ -113,6 +119,7 @@ export const PROJECTS: Projects = {
     },
     {
       id: 'proyecto-celu-seguro',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'Pacífico Seguros',
@@ -135,6 +142,7 @@ export const PROJECTS: Projects = {
     },
     {
       id: 'proyecto-rpa-carga-afiliacion',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'Pacífico Seguros — RPA',
@@ -158,6 +166,7 @@ export const PROJECTS: Projects = {
     },
     {
       id: 'proyecto-rpa-rentas-vitalicias',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'Pacífico Seguros — RPA',
@@ -185,6 +194,7 @@ export const PROJECTS: Projects = {
     },
     {
       id: 'proyecto-rpa-alta-codigos',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'Pacífico Seguros — RPA',
@@ -207,6 +217,7 @@ export const PROJECTS: Projects = {
     },
     {
       id: 'proyecto-entre-cuentas',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'Redeban Colombia',
@@ -229,6 +240,7 @@ export const PROJECTS: Projects = {
     },
     {
       id: 'proyecto-inicializaciones',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'Redeban Colombia',
@@ -251,6 +263,7 @@ export const PROJECTS: Projects = {
     },
     {
       id: 'proyecto-sispro-coffee',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'PIDIA — Cliente varios',
@@ -274,6 +287,7 @@ export const PROJECTS: Projects = {
     },
     {
       id: 'proyecto-restaurante',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'PIDIA — Cliente varios',
@@ -297,6 +311,7 @@ export const PROJECTS: Projects = {
     },
     {
       id: 'proyecto-landing-productos',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'PIDIA — Cliente varios',
@@ -319,6 +334,7 @@ export const PROJECTS: Projects = {
     },
     {
       id: 'proyecto-cenfrocafe-planta',
+      category: 'laboral',
       placeholder: false,
       confidential: true,
       badge: 'PIDIA — CENFROCAFE',
@@ -341,7 +357,56 @@ export const PROJECTS: Projects = {
       releaseHistory: [],
     },
     {
+      id: 'proyecto-finpar',
+      category: 'personal',
+      placeholder: false,
+      confidential: false,
+      badge: 'Proyecto personal',
+      title: 'FinPar — Finanzas personales y en pareja',
+      role: 'Mobile Developer',
+      releases: null,
+      description:
+        'App móvil para gestión de finanzas personales y en pareja (Perú): registra ingresos por empleo con cálculo automático del sueldo neto y gastos por categoría, individuales o compartidos con la pareja.',
+      contribLabel: '// mi contribución',
+      bullets: [
+        'Desarrollé la app completa en Flutter con arquitectura feature-first, estado con Riverpod y navegación con go_router.',
+        'Implementé un motor propio de cálculo de sueldo neto (5ta y 4ta categoría: AFP/ONP, EPS, renta con deducción de 7 UIT, asignación familiar), cubierto con tests unitarios.',
+        'Modelé el backend en Supabase (Postgres, Auth y RLS) con espacios compartidos: invitación de la pareja por correo y atribución de cada ingreso/gasto a la persona correcta.',
+        'Construí el resumen mensual con balance, desglose por categoría y aporte individual vs. compartido.',
+      ],
+      chips: ['Flutter', 'Dart', 'Supabase', 'PostgreSQL', 'Riverpod', 'go_router'],
+      linkLabel: 'Ver proyecto',
+      images: [],
+      link: null,
+      releaseHistory: [],
+    },
+    {
+      id: 'proyecto-fittrack',
+      category: 'personal',
+      placeholder: false,
+      confidential: false,
+      badge: 'Proyecto personal',
+      title: 'FitTrack — Seguimiento fitness con IA',
+      role: 'Mobile Developer',
+      releases: null,
+      description:
+        'App móvil de seguimiento fitness (entrenamiento, alimentación e hidratación): catálogo de ejercicios, rutinas por día, cumplimiento diario con cronómetro, progreso corporal y generación de dietas y rutinas con IA.',
+      contribLabel: '// mi contribución',
+      bullets: [
+        'Desarrollé la app en Flutter con Clean Architecture (data/domain/presentation), estado con Riverpod y navegación de 6 pestañas con go_router.',
+        'Implementé la generación de planes de dieta y rutinas con IA, integrando Claude (Anthropic) y GPT (OpenAI) con clave por usuario y un generador local gratuito por reglas.',
+        'Construí el backend en Supabase (Auth, Postgres con RLS, Storage y Edge Functions) con catálogo de ejercicios, rutinas y seguimiento de progreso con gráficas.',
+        'Integré recordatorios de hidratación con notificaciones locales programables y control de roles (usuario / mantenedor / admin).',
+      ],
+      chips: ['Flutter', 'Dart', 'Supabase', 'Riverpod', 'IA', 'fl_chart'],
+      linkLabel: 'Ver proyecto',
+      images: [],
+      link: null,
+      releaseHistory: [],
+    },
+    {
       id: 'proyecto-wordle-java',
+      category: 'personal',
       placeholder: false,
       confidential: false,
       badge: 'Proyecto personal',

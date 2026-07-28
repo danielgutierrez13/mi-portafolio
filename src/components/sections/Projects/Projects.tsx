@@ -5,20 +5,38 @@ import { Icon } from '../../ui/Icon';
 import { Section } from '../../layout/Section';
 import { ProjectLightbox } from './ProjectLightbox';
 import { useSwipe } from '../../../hooks/useSwipe';
-import { PROJECTS, type ProjectItem } from '../../../data/projects';
+import { PROJECTS, type ProjectItem, type ProjectCategory } from '../../../data/projects';
 import { useFlags } from '../../../config/flags';
+
+type CategoryFilter = ProjectCategory | 'todos';
+
+const CATEGORY_TABS: ReadonlyArray<{ value: CategoryFilter; label: string }> = [
+  { value: 'todos', label: 'Todos' },
+  { value: 'laboral', label: 'Laborales' },
+  { value: 'personal', label: 'Personales' },
+];
 
 interface ProjectCardProps {
   readonly item: ProjectItem;
   readonly onOpen: (item: ProjectItem) => void;
 }
 
+const CATEGORY_LABELS: Record<ProjectCategory, string> = {
+  laboral: 'Laboral',
+  personal: 'Personal',
+};
+
 function ProjectCard({ item, onOpen }: ProjectCardProps) {
-  const { placeholder, badge, title, role, releases, description, contribLabel, bullets, chips, linkLabel } = item;
+  const { category, placeholder, badge, title, role, releases, description, contribLabel, bullets, chips, linkLabel } = item;
 
   return (
     <div className={`project-card${placeholder ? ' project-card--placeholder' : ''}`}>
-      {badge && <span className="project-card__badge">{badge}</span>}
+      <div className="project-card__badges">
+        {badge && <span className="project-card__badge">{badge}</span>}
+        <span className={`project-card__category project-card__category--${category}`}>
+          {CATEGORY_LABELS[category]}
+        </span>
+      </div>
       <div className="project-card__top">
         <h3>{title}</h3>
         {releases && <span className="project-card__releases">{releases}</span>}
@@ -40,10 +58,13 @@ function ProjectCard({ item, onOpen }: ProjectCardProps) {
 export function Projects() {
   const { showJne } = useFlags();
   const [activeProject, setActiveProject] = useState<ProjectItem | null>(null);
+  const [category, setCategory] = useState<CategoryFilter>('todos');
   const [current, setCurrent] = useState(0);
   const [perPage, setPerPage] = useState(2);
   const { eyebrow, heading, description, items: allItems } = PROJECTS;
-  const items = showJne ? allItems : allItems.filter((item) => item.badge !== 'JNE');
+  const items = allItems
+    .filter((item) => showJne || item.badge !== 'JNE')
+    .filter((item) => category === 'todos' || item.category === category);
 
   const total = items.length;
   const pages = Math.ceil(total / perPage);
@@ -63,6 +84,11 @@ export function Projects() {
   const prev = useCallback(() => go(safeCurrent - 1), [safeCurrent, go]);
   const next = useCallback(() => go(safeCurrent + 1), [safeCurrent, go]);
 
+  const selectCategory = useCallback((value: CategoryFilter) => {
+    setCategory(value);
+    setCurrent(0);
+  }, []);
+
   const trackRef = useSwipe(prev, next);
 
   const start = safeCurrent * perPage;
@@ -71,6 +97,20 @@ export function Projects() {
   return (
     <Section id="proyectos">
       <SectionHead eyebrow={eyebrow} heading={heading} description={description} />
+      <div className="projects-filter" role="tablist" aria-label="Categorías de proyectos">
+        {CATEGORY_TABS.map(({ value, label }) => (
+          <button
+            key={value}
+            type="button"
+            role="tab"
+            aria-selected={category === value}
+            className={`projects-filter__tab${category === value ? ' is-active' : ''}`}
+            onClick={() => selectCategory(value)}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
       <div className="projects-carousel">
         <div className="projects-carousel__row">
           <button
