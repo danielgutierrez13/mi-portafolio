@@ -99,7 +99,7 @@ Portafolio profesional personal de una sola página (SPA) construido con React 1
 ## 📁 Estructura del Proyecto
 
 ```
-mi-portafolio/
+mi_portafolio_web/
 ├── public/
 │   ├── favicon.svg                      # Favicon estilo terminal (> _)
 │   └── docs/                            # Diplomas, certificados, constancias y CV (PDF/imagen)
