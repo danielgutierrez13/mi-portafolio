@@ -226,38 +226,6 @@ mi_portafolio_web/
 ├── eslint.config.js                     # Configuración ESLint flat config
 └── package.json                         # Dependencias y scripts
 ```
-
----
-
-## 🧪 Tests
-
-La suite de tests cubre todos los componentes, hooks y contexto:
-
-| Archivo de test                              | Tests   |
-|----------------------------------------------|---------|
-| `context/ThemeProvider.test.tsx`             | 6       |
-| `hooks/useCarousel.test.ts`                  | 7       |
-| `layout/Container.test.tsx`                  | 3       |
-| `layout/Section.test.tsx`                    | 6       |
-| `ui/Button.test.tsx`                         | 7       |
-| `ui/Chip.test.tsx`                           | 7       |
-| `ui/Eyebrow.test.tsx`                        | 2       |
-| `ui/Icon.test.tsx`                           | 4       |
-| `ui/Lightbox.test.tsx`                       | 7       |
-| `ui/SectionHead.test.tsx`                    | 5       |
-| `sections/Footer.test.tsx`                   | 4       |
-| `sections/Nav.test.tsx`                      | 6       |
-| `sections/Hero/Hero.test.tsx`                | 8       |
-| `sections/About/About.test.tsx`              | 6       |
-| `sections/Stack/Stack.test.tsx`              | 5       |
-| `sections/Experience/Experience.test.tsx`    | 6       |
-| `sections/Projects/Carousel.test.tsx`        | 7       |
-| `sections/Projects/Projects.test.tsx`        | 5       |
-| `sections/Education/CertLightbox.test.tsx`   | 8       |
-| `sections/Education/Education.test.tsx`      | 6       |
-| `sections/Contact/Contact.test.tsx`          | 6       |
-| **Total**                                    | **121** |
-
 ---
 
 ## 📞 Contacto
