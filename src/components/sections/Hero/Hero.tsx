@@ -39,7 +39,7 @@ function CvModal({ open, onClose, file }: CvModalProps) {
   return (
     <Lightbox isOpen={open} onClose={onClose} labelId="cvLightboxTitle">
       <div className="lightbox__image-wrap">
-        <iframe src={file} title={CV_LABEL} className="lightbox__pdf" />
+        {open && <iframe key={file} src={file} title={CV_LABEL} className="lightbox__pdf" />}
       </div>
       <div className="lightbox__meta">
         <h3 id="cvLightboxTitle">{CV_LABEL}</h3>
