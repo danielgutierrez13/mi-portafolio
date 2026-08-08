@@ -35,6 +35,24 @@ interface CvModalProps {
   readonly file: string;
 }
 
+async function downloadCv(file: string, filename: string) {
+  try {
+    const res = await fetch(file);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch {
+    // Fallback: abrir el archivo si el fetch falla.
+    window.open(file, '_blank', 'noopener');
+  }
+}
+
 function CvModal({ open, onClose, file }: CvModalProps) {
   return (
     <Lightbox isOpen={open} onClose={onClose} labelId="cvLightboxTitle">
@@ -43,9 +61,14 @@ function CvModal({ open, onClose, file }: CvModalProps) {
       </div>
       <div className="lightbox__meta">
         <h3 id="cvLightboxTitle">{CV_LABEL}</h3>
-        <a href={file} download={`${CV_LABEL}.pdf`} className="btn btn--primary" style={{ marginTop: 8 }}>
+        <button
+          type="button"
+          className="btn btn--primary"
+          style={{ marginTop: 8 }}
+          onClick={() => downloadCv(file, `${CV_LABEL}.pdf`)}
+        >
           <Icon id="download" /> Descargar CV
-        </a>
+        </button>
       </div>
     </Lightbox>
   );
