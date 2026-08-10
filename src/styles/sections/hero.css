@@ -1,4 +1,4 @@
-.hero { padding-block: 88px 110px; }
+.hero { padding-block: 88px 56px; }
 .hero__grid {
   display: grid;
   grid-template-columns: 1.05fr .95fr;

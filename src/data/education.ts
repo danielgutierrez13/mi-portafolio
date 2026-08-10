@@ -39,6 +39,14 @@ export const EDUCATION: Education = {
     'Base académica y formación continua en arquitectura, seguridad, datos y desarrollo de producto. Haz clic en cualquier capacitación para ver el certificado.',
   degrees: [
     {
+      id: 'unp-titulo',
+      icon: 'cap',
+      institution: 'Universidad Nacional de Piura',
+      degree: 'Título Profesional de Ingeniero Informático',
+      date: 'Sustentación de tesis · Jul. 2026',
+      document: null,
+    },
+    {
       id: 'unp',
       icon: 'cap',
       institution: 'Universidad Nacional de Piura',

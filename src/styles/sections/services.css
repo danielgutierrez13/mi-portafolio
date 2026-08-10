@@ -1,0 +1,51 @@
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+/* Si el número de tarjetas es impar, la última queda sola: la centramos
+   ocupando ambas columnas pero con el ancho de una sola. */
+.services-grid > .service-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  max-width: calc(50% - 10px);
+  margin-inline: auto;
+}
+.service-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+.service-card:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-2px); }
+.service-card__icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  margin-bottom: 16px;
+}
+.service-card__icon .icon { width: 22px; height: 22px; }
+.service-card h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.service-card p {
+  color: var(--ink-soft);
+  font-size: 14.5px;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+.service-card .chip-row { margin-top: auto; }
+
+@media (max-width: 720px) {
+  .services-grid { grid-template-columns: 1fr; }
+}

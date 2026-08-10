@@ -4,8 +4,14 @@
   padding-inline: 28px;
 }
 
-.section { padding-block: 104px; }
+.section { padding-block: clamp(52px, 6vw, 76px); }
 .section--alt { background: var(--bg-alt); }
+/* Cuando dos secciones con el MISMO fondo van seguidas, colapsamos el
+   padding superior de la segunda para evitar un gran hueco vacío duplicado.
+   En los bordes entre distinto fondo se mantiene el padding completo para
+   que el contenido respire dentro de la banda de color. */
+.section:not(.section--alt) + .section:not(.section--alt),
+.section--alt + .section--alt { padding-top: 0; }
 
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }

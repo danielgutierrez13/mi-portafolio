@@ -15,8 +15,10 @@
 @import './styles/sections/hero.css';
 @import './styles/sections/about.css';
 @import './styles/sections/stack.css';
+@import './styles/sections/services.css';
 @import './styles/sections/experience.css';
 @import './styles/sections/projects.css';
+@import './styles/sections/opensource.css';
 @import './styles/sections/education.css';
 @import './styles/sections/contact.css';
 @import './styles/sections/footer.css';
