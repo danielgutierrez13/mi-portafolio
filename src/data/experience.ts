@@ -49,13 +49,14 @@ export const EXPERIENCE: ExperienceItem[] = [
     meta: 'Encora / Coforge, Lima, Perú — Cliente: Pacífico Seguros',
     modality: 'remoto',
     bullets: [
+      'Desarrollo AI-First: uso de GitHub Copilot y flujos spec-driven con OpenSpec para acelerar la generación de código y la especificación de features.',
       'Diseño de APIs bajo enfoque API‑First, definiendo contratos desacoplados entre dominios.',
       'Evolución de microservicios reactivos con Spring Boot en Azure.',
-      'Prácticas DevOps avanzadas: ambientes efímeros y feature flags para despliegues progresivos.',
-      'Integración asincrónica con Azure Queues, aplicando patrones de resiliencia.',
+      'Trunk-Based Development (TBD) con feature flags para integración continua y despliegues progresivos.',
+      'Integración y orquestación de datos con Azure Logic Apps y Azure Data Factory (ADF).',
       'Observabilidad y monitoreo con Azure API Management, Dynatrace y Grafana.',
     ],
-    chips: ['Spring Boot', 'Azure', 'Azure Queues', 'Dynatrace', 'Grafana'],
+    chips: ['Spring Boot', 'Azure', 'GitHub Copilot', 'OpenSpec', 'API-First', 'TBD', 'Feature Flags', 'Logic Apps', 'ADF'],
     certificate: null,
   },
   {
